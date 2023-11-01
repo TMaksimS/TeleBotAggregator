@@ -23,11 +23,11 @@ class Agreggator:
             query["dt_upto"],
             "%Y-%m-%dT%H:%M:%S"
         )
-        self.group_by = query["group_type"]
+        self.group_by = query["group_type"].lower()
         self.params = query
         self.res = {
             "dataset": [],
-            "label": []
+            "labels": []
         }
 
     @staticmethod
@@ -51,7 +51,7 @@ class Agreggator:
                     self.date_stop
                 )
                 result["dataset"].append(data[0])
-                result["label"].append(datetime.datetime.strptime(
+                result["labels"].append(datetime.datetime.strptime(
                     data[1],
                     "%Y-%m-%dT%H:%M:%S"
                 ).isoformat())
@@ -61,7 +61,7 @@ class Agreggator:
                 self.date_start + datetime.timedelta(hours=0 + i)
             )
             result["dataset"].append(data[0])
-            result["label"].append(datetime.datetime.strptime(
+            result["labels"].append(datetime.datetime.strptime(
                 data[1],
                 "%Y-%m-%dT%H:%M:%S"
             ).isoformat())
@@ -84,7 +84,7 @@ class Agreggator:
                     self.date_stop
                 )
                 result["dataset"].append(data[0])
-                result["label"].append(datetime.datetime.strptime(
+                result["labels"].append(datetime.datetime.strptime(
                     data[1],
                     "%Y-%m-%dT%H:%M:%S"
                 ).isoformat())
@@ -94,7 +94,7 @@ class Agreggator:
                 self.date_start + datetime.timedelta(days=0 + i)
             )
             result["dataset"].append(data[0])
-            result["label"].append(datetime.datetime.strptime(
+            result["labels"].append(datetime.datetime.strptime(
                 data[1],
                 "%Y-%m-%dT%H:%M:%S"
             ).isoformat())
@@ -123,7 +123,7 @@ class Agreggator:
         for date in pool_dates:
             values = await self.counter_by_date(date[0], date[1])
             result["dataset"].append(values[0])
-            result["label"].append(values[1])
+            result["labels"].append(values[1])
         return result
 
     async def main(self):
