@@ -3,12 +3,7 @@ import datetime
 from typing import Any
 
 from src.database.crud import get_values
-
-b = {
-    "dt_from": "2022-09-01T00:00:00",
-    "dt_upto": "2022-12-31T23:59:00",
-    "group_type": "month"
-}
+from settings import LOGER
 
 
 class Agreggator:
@@ -126,6 +121,7 @@ class Agreggator:
             result["labels"].append(values[1])
         return result
 
+    @LOGER.catch
     async def main(self):
         """Главная функция, которая отслеживает тип агреггации
          и назначет нужный алгоритм"""

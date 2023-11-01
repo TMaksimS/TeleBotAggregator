@@ -1,10 +1,10 @@
 import pymongo
 
 
-from settings import MONGO_PORT, MONGO_USER, MONGO_PASS
+from settings import MONGO_USER, MONGO_PASS, MONGO_URL
 
 client = pymongo.MongoClient(
-    host=f"mongodb://localhost:{MONGO_PORT}",
+    host=f"{MONGO_URL}",
     username=MONGO_USER,
     password=MONGO_PASS
 )

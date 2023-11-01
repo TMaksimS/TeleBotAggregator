@@ -22,6 +22,9 @@ async def msresponse(message: types.Message):
             datetime.strptime(a.dt_upto, "%Y-%m-%dT%H:%M:%S")
             if str(a.group_type.lower()) not in ("month", "day", "hour"):
                 raise ValueError
+            ag = Agreggator(json.loads(message.text))
+            res = await ag.main()
+            await message.answer(text=str(res))
         except ValueError:
             await message.answer(
                 text="Даты указаны не в ISOformat "
@@ -31,6 +34,3 @@ async def msresponse(message: types.Message):
             )
     except Exception:  # json.JSONDecodeError, pydantic.ValidationError
         await message.answer(text="Неккоректный запрос")
-    ag = Agreggator(json.loads(message.text))
-    res = await ag.main()
-    await message.answer(text=str(res))
