@@ -14,3 +14,4 @@ LOGER.add(
 MONGO_PORT = env.int("MONGO_PORT")
 MONGO_USER = env.str("MONGO_USER")
 MONGO_PASS = env.str("MONGO_PASS")
+TOKEN_BOT = env.str("TOKEN_BOT")
