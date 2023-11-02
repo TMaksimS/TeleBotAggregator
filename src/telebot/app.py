@@ -37,7 +37,7 @@ async def msresponse(message: types.Message):
                 raise ValueError
             ag = Agreggator(json.loads(message.text))
             res = await ag.main()
-            await message.answer(text=str(res))
+            await message.answer(text=str(res).replace("'", '"'))
         except ValueError:
             await message.answer(
                 text="Даты указаны не в ISOformat "
