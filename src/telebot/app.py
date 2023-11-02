@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
 
+import pydantic
 from aiogram import Bot, Dispatcher, types
 
 from settings import TOKEN_BOT
@@ -32,5 +33,5 @@ async def msresponse(message: types.Message):
                      "\nА group_type должен быть идентично одному из значений"
                      "\n(month, day, hour)"
             )
-    except Exception:  # json.JSONDecodeError, pydantic.ValidationError
+    except (json.JSONDecodeError, pydantic.ValidationError):
         await message.answer(text="Неккоректный запрос")
