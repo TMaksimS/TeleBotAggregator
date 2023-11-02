@@ -3,6 +3,7 @@ from datetime import datetime
 
 import pydantic
 from aiogram import Bot, Dispatcher, types
+from aiogram.filters import CommandStart
 
 from settings import TOKEN_BOT
 from src.telebot.schemas import MsRequest
@@ -11,6 +12,17 @@ from src.aggregator import Agreggator
 BOT = Bot(token=TOKEN_BOT)
 dp = Dispatcher()
 
+
+@dp.message(CommandStart())
+async def handle_start(message: types.Message):
+    """Обработчик команды /start"""
+    await message.answer(text=f"Привет, {message.from_user.full_name}!")
+    await message.answer(text="Я ожидаю от тебя данные в JSON формате\n"
+                              "Вот пример:\n")
+    await message.answer(text='`{"dt_from": "2022-10-01T00:00:00",'
+                              ' "dt_upto": "2022-11-30T23:59:00",'
+                              '   "group_type": "day"}`'
+                         )
 
 @dp.message()
 async def msresponse(message: types.Message):
